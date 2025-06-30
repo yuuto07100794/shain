@@ -1,0 +1,31 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+	<script th:src="@{/js/index.js}" charset="utf-8"></script>
+	<title>処理完了画面</title>
+</head>
+<body>
+	
+	<!-- データチェックのエラーメッセージ表示-->
+	<div class="error_msg">
+		<ul th:each="message : ${error_messages}">
+			<li th:text="${message}"></li>
+		</ul>
+	</div>
+	
+	<!-- 処理結果の表示 -->
+	<div class="main">
+		<p>社員番号<span th:text="${session.shain_no}"></span>の社員情報を<span th:text="${process}"></span>しました。</p>
+		
+		<!-- 社員検索ボタンの表示 -->
+		<div class="btn">
+			<form method="get" th:action="@{/shain/kensaku/page}">
+				<input type="submit" value="社員検索"> 
+			</form>
+		</div>
+	
+	</div>
+	
+</body>
+</html>

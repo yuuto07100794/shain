@@ -1,0 +1,86 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+	<script th:src="@{/js/index.js}" charset="utf-8"></script>
+	<title>社員変更画面</title>
+</head>
+<body>
+	
+	<!-- エラーメッセージ表示-->
+	<div class="error_msg">
+		<ul th:each="message : ${error_messages}">
+			<li th:text="${message}"></li>
+		</ul>
+	</div>
+	
+	<!-- 社員情報入力フォーム -->
+	<div class="main">
+		<div class="form">
+			<table border="1">
+				<form method="post" th:object="${form}" th:action="@{/shain/change}" id="shain_info">
+					<tr>
+						<th>社員番号</th>
+						<td><input type="text" th:field="*{shain_no}" readonly="readonly" class="text_readonly"></td>
+						<th>部署</th>
+						<!-- 部署のプルダウン表示 -->
+						<td>
+							<select th:field="*{department_id}">
+								<option
+								    th:each="department : ${departmentList}"
+								    th:value="${department.id}"
+								    th:text="${department.department_name}">
+								</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>氏名（漢字）</th>
+						<td><input type="text" th:field="*{shain_name}" maxlength="40"></td>
+						<th>氏名（カナ）</th>
+						<td><input type="text" th:field="*{shain_kana}" maxlength="40"></td>
+					</tr>
+					<!-- 確認ダイアログの結果を保持する<input>タグ（変更処理用） -->
+					<input type="text" name="change_process_check" id="change_process_check" hidden>
+				</form>
+			</table>
+		</div>
+		
+		<!-- （削除処理で使用）削除対象の特定用のform -->
+		<form method="post" th:object="${form}" th:action="@{/shain/delete}" id="shain_delete_info">
+			<!-- 削除対象の特定用（画面には表示させず、内部の処理で使用する） -->
+				<input type="text" th:field="*{shain_no}" hidden>
+				<select th:field="*{department_id}" hidden>
+					<option value="0"></option>
+						<option
+							th:each="department : ${departmentList}"
+							th:value="${department.id}"
+							th:text="${department.department_name}">
+						</option>
+				</select>
+				<input type="text" th:field="*{shain_name}" hidden>
+				<input type="text" th:field="*{shain_kana}" hidden>
+				<input type="text" name="delete_process_check" id="delete_process_check" hidden>
+		</form>
+				
+		<!-- 変更ボタン、削除ボタン、クリアボタンの表示-->
+		<div class="btn">
+			<!-- 変更ボタン -->
+			<input type="submit" value="変更" form="shain_info" onclick="ChangeProcessCheck()">
+			<!-- 削除ボタン -->
+			<input type="submit" value="削除" form="shain_delete_info" onclick="DeleteProcessCheck()">
+			<!-- クリアボタン -->
+			<input type="submit" value="クリア" onclick="clearForm()">
+		</div>
+		
+		<!-- 戻るボタンの表示 -->
+		<div class="btn">
+			<form method="get" th:action="@{/shain/change/back}">
+				<input type="submit" value="戻る"> 
+			</form>
+		</div>
+	
+	</div>	
+		
+</body>
+</html>

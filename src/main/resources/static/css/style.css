@@ -1,0 +1,51 @@
+.main {
+	text-align:center; /* 中央ぞろえ */
+}
+
+.form {
+	/* 中央ぞろえ */
+	width:fit-content;
+	margin:0 auto;
+}
+
+.shain_display {
+	/* 中央ぞろえ */
+	width:fit-content;
+	margin:0 auto;
+}
+
+.error_msg {
+	/* 中央ぞろえ */
+	width: fit-content;
+	margin: auto;
+	height:150px; /* 高さに150ピクセルを設定 */
+	color:#ff0000; /* 文字色に赤色を設定 */
+}
+
+#error_msg {
+	/* 中央ぞろえ */
+	width: fit-content;
+	margin: auto;
+	height:150px; /* 高さに150ピクセルを設定 */
+	color:#ff0000; /* 文字色に赤色を設定 */
+}
+
+th {
+	background-color:#b8cce4; /* 背景色に16進数 b8cce4 の色を設定 */
+}
+
+.btn {
+	margin:20px; /* 外部余白に20ピクセルを設定 */
+}
+
+.sentaku_btn {
+	margin:5px; /* 外部余白に5ピクセルを設定 */
+}
+
+.mandatory {
+	color:#ff0000; /* 文字色に赤色を設定 */
+}
+
+.text_readonly {
+	background-color:#999999; /* 背景色に16進数 999999 の色を設定 */
+}

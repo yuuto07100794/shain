@@ -1,0 +1,130 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+	<script th:src="@{/js/index.js}" charset="utf-8"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+	<title>社員登録画面</title>
+	<script>
+	    // 登録フォームの情報をサーバに送信して、入力値チェックを実施
+	    function RegistrationProcess(event) {
+			
+			// フォームのデフォルトの送信を防ぐ
+	        event.preventDefault();
+			
+			// 登録フォームの情報を取得し、変数 form で値を保持する
+	        const form = new FormData(document.getElementById("shain_info"));
+	
+	        // サーバに入力値チェック処理をリクエスト（非同期）
+	        $.ajax({
+	            url: '/shain/shain/registration/input/check',
+	            method: 'POST',
+	            data: form,
+	            contentType: false,
+	            processData: false,
+	            success: function(response) {
+	                if (response.isValid) {
+						
+	                    // 入力値チェックで、エラーがなかった場合、確認ダイアログを表示
+	                    const userConfirmed = confirm("入力された内容で登録します。よろしいですか？");
+	                    
+						// 確認ダイアログの選択結果判定
+						if (userConfirmed) {
+							
+	                        // 確認ダイアログで「OK」を押下した場合、登録処理を実行する
+	                        submitRegistrationProcess(form);
+							return;
+	                    }
+	                } else {
+						
+						// 入力値チェックでエラーがあった場合、エラーメッセージを箇条書きで表示
+						let listHtml = '<ul class="error-messages">';
+							
+						response.errorMsg.forEach(function (msg) {
+							
+						    listHtml += '<li>' + msg + '</li>';
+						});
+						
+						
+						listHtml += '</ul>';
+						
+						// メッセージ表示領域にエラーメッセージを箇条書きで表示する
+						$('#error_msg').html(listHtml);
+
+	                }
+	            },
+	        });
+	    }
+
+	    // 確認メッセージ表示後、サーバに社員登録処理の、リクエストを送信
+	    function submitRegistrationProcess(form) {
+	        $.ajax({
+	            url: '/shain/shain/registration',
+	            method: 'POST',
+	            data: form,
+	            contentType: false,
+	            processData: false,
+	            success: function(response) {
+					
+					// 社員登録処理完了後、処理完了画面を表示する
+	                window.location.href = "/shain/registration/finish"
+					return;
+					
+	            },
+	        });
+	    }
+	</script>
+</head>
+<body>
+	
+	<!-- データチェックのエラーメッセージ表示-->
+	<div id="error_msg"></div>
+	
+	<!-- 社員情報入力フォーム -->
+	<div class="main">
+		<div class="form">
+			<table border="1">
+				<form th:object="${form}" id="shain_info" onsubmit="RegistrationProcess(event)">
+					<tr>
+						<th>社員番号<span class="mandatory">※</span></th>
+						<td><input type="text" th:field="*{shain_no}" maxlength="6"></td>
+						<th>部署<span class="mandatory">※</span></th>
+						<!-- 部署のプルダウン表示 -->
+						<td>
+							<select th:field="*{department_id}">
+								<option value="0"></option>
+								<option
+								    th:each="department : ${departmentList}"
+								    th:value="${department.id}"
+								    th:text="${department.department_name}">
+								</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>氏名（漢字）</th>
+						<td><input type="text" th:field="*{shain_name}" maxlength="40"></td>
+						<th>氏名（カナ）</th>
+						<td><input type="text" th:field="*{shain_kana}" maxlength="40"></td>
+					</tr>
+				</form>
+			</table>
+		</div>
+		
+		<!-- 登録ボタン、クリアボタンの表示-->
+		<div class="btn">
+			<input type="submit" value="登録" form="shain_info">
+			<input type="submit" value="クリア" onclick="clearForm()">
+		</div>
+		
+		<!-- 戻るボタンの表示 -->
+		<div class="btn">
+			<form method="get" th:action="@{/shain/registration/back}">
+				<input type="submit" value="戻る"> 
+			</form>
+		</div>
+	
+	</div>
+	
+</body>
+</html>
