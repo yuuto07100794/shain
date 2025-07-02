@@ -1,0 +1,6 @@
+-- SCHEMA: shain
+
+-- DROP SCHEMA IF EXISTS shain ;
+
+CREATE SCHEMA IF NOT EXISTS shain
+    AUTHORIZATION user1;
