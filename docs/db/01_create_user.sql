@@ -1,4 +1,6 @@
 -- Role: user1
+-- 実行前に、パスワードは任意のものに書き換えてください。
+
 -- DROP ROLE IF EXISTS user1;
 
 CREATE ROLE user1 WITH
@@ -9,4 +11,4 @@ CREATE ROLE user1 WITH
   NOCREATEROLE
   NOREPLICATION
   NOBYPASSRLS
-  ENCRYPTED PASSWORD 'SCRAM-SHA-256$4096:X2Z7SHT+pgI1v7znyY/G3g==$L9twi3indl1kNWKCe/uXK04RRQ2Yr+zlDILA6bPZJ0g=:OWN2qyy61td9rMciosLlhosHI2YUYC4kMi6UiW4i0Zs=';
+  PASSWORD 'この部分を、設定したいパスワードに書き換えてください';
