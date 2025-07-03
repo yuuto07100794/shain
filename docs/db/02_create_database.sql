@@ -10,5 +10,6 @@ CREATE DATABASE "ShainDB"
     LC_CTYPE = 'ja-JP'
     LOCALE_PROVIDER = 'libc'
     TABLESPACE = pg_default
+    TEMPLATE template0
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;
