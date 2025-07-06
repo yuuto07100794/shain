@@ -99,8 +99,6 @@ f. エラーが表示されず、CSVのデータが、テーブルに取り込�
 
 ■ application.propertiesの内容（以下の内容をコピーして作成してください）
 
-'''application.properties
-
 spring.application.name=shain
 
 server.servlet.context-path=/shain
