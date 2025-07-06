@@ -101,11 +101,17 @@ f. エラーが表示されず、CSVのデータが、テーブルに取り込�
 
 '''application.properties
 spring.application.name=shain
+
 server.servlet.context-path=/shain
+
 server.port=7777
+
 spring.thymeleaf.cache=false
+
 spring.datasource.url=jdbc:postgresql://localhost:5432/ShainDB
+
 spring.datasource.username=user1
+
 spring.datasource.password=ここに、2. データベースの準備（PostgreSQL）の①で作成したユーザのパスワードを設定してください
 
 
